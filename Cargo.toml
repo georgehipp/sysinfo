@@ -1,0 +1,10 @@
+[package]
+name = "sysinfo"
+version = "0.1.0"
+authors = ["George"]
+edition = "2018"
+
+[dependencies]
+sysinfo = "0.8.4"
+os_info = "1.1.1"
+structopt = "0.2.10"
