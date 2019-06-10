@@ -1,31 +1,29 @@
-use sysinfo;
 use os_info;
+use sysinfo;
 
-// Public Function to be called by main.rs 
+// Public Function to be called by main.rs
 pub fn call(arg: &str) {
-    use sysinfo::{SystemExt};
+    use sysinfo::SystemExt;
     let mut system = sysinfo::System::new();
-    
-    // Update all information of our system struct:
+    let info = os_info::get();
+
+    // Update all information of our system struct
     system.refresh_all();
 
     match arg {
-        "os" => os(),
+        "os" => os(info),
         "d" | "disk" => disk(system),
         "mem" | "memory" => memory(system),
         "proc" | "processes" => processes(system),
         "cpu" => cpu(system),
         "comp" | "components" => components(system),
         "net" | "network" => network(system),
-        _ => println!("{:?} Not a Valid Option", arg)
+        _ => println!("{:?} Not a Valid Option", arg),
     }
 }
 
 // OS Information
-fn os() {
-    let info = os_info::get();
-
-    // OS Information:
+fn os(info: os_info::Info) {
     println!("Type: {}", info.os_type());
     println!("Version: {}", info.version());
 }
@@ -34,7 +32,6 @@ fn os() {
 fn disk(system: sysinfo::System) {
     use sysinfo::{DiskExt, SystemExt};
 
-    // Disk information:
     for disk in system.get_disks() {
         println!("Disk Name - {:?}", disk.get_name());
         println!("Disk Type - {:?}", disk.get_type());
@@ -45,33 +42,43 @@ fn disk(system: sysinfo::System) {
         println!("Disk Available Space - {:?}", disk.get_available_space());
         println!(" --------------------");
     }
-} 
-
+}
 
 // System Memory Usage
 fn memory(system: sysinfo::System) {
     use sysinfo::{NetworkExt, SystemExt};
 
     // RAM and SWAP information:
-    println!("total memory: {} kB", system.get_total_memory());
-    println!("used memory : {} kB", system.get_used_memory());
-    println!("total swap  : {} kB", system.get_total_swap());
-    println!("used swap   : {} kB", system.get_used_swap());
+    println!("Total Memory: {} kB", system.get_total_memory());
+    println!("Used Memory : {} kB", system.get_used_memory());
+    println!("Total Swap  : {} kB", system.get_total_swap());
+    println!("Used Swap   : {} kB", system.get_used_swap());
     println!(" --------------------");
 
     // Network data:
-    println!("Network Input Data - {} B", system.get_network().get_income());
-    println!("Network Output Data - {} B", system.get_network().get_outcome());
+    println!(
+        "Network Input Data - {} B",
+        system.get_network().get_income()
+    );
+    println!(
+        "Network Output Data - {} B",
+        system.get_network().get_outcome()
+    );
     println!(" --------------------");
 }
 
-
+// Complete Process List
 fn processes(system: sysinfo::System) {
     use sysinfo::{ProcessExt, ProcessorExt, SystemExt};
 
     // Every process info:
     for (pid, proc_) in system.get_process_list() {
-        println!("Process PID - {} : Name - {} => Status - {:?}", pid, proc_.name(), proc_.status());
+        println!(
+            "Process PID - {} : Name - {} => Status - {:?}",
+            pid,
+            proc_.name(),
+            proc_.status()
+        );
         println!("  cmd - {:?}", proc_.cmd());
         println!("  exe - {:?}", proc_.exe());
         println!("  parent - {:?}", proc_.parent());
@@ -82,14 +89,14 @@ fn processes(system: sysinfo::System) {
         println!("  start_time - {:?}", proc_.start_time());
         println!("  cpu_usage - {:?}", proc_.cpu_usage());
         // Does not work on Windows
-        //if  info.os_type() != os_info::Type::Windows {
+        //if info.os_type() != os_info::Type::Windows {
         //    println!("  uid - {:?}", proc_.uid());
         //    println!("  gid - {:?}", proc_.gid());
         //    println!("  tasks - {:?}", proc_.tasks());
         //}
     }
-    
-    // Processor Information 
+
+    // Processor Information
     for processor in system.get_processor_list() {
         println!("Name - {:?}", processor.get_name());
         println!("Usage - {:?}", processor.get_cpu_usage());
@@ -97,14 +104,15 @@ fn processes(system: sysinfo::System) {
 }
 
 fn cpu(system: sysinfo::System) {
-    use sysinfo::{SystemExt};
+    use sysinfo::SystemExt;
 
     // Number of processors Minus one due to it counting the array as one
-    println!("NB processors: {}", system.get_processor_list().len()-1);
+    println!("NB processors: {}", system.get_processor_list().len() - 1);
 }
 
+// List of all Components
 fn components(system: sysinfo::System) {
-    use sysinfo::{SystemExt};
+    use sysinfo::SystemExt;
 
     // Linux Only Components:
     for component in system.get_components_list() {
@@ -112,10 +120,10 @@ fn components(system: sysinfo::System) {
     }
 }
 
+// Network Info - Needs to be validated
 fn network(system: sysinfo::System) {
     use sysinfo::{NetworkExt, SystemExt};
 
-    // Network data:
-    println!("input data : {} B", system.get_network().get_income());
-    println!("output data: {} B", system.get_network().get_outcome());
+    println!("Input Data : {} B", system.get_network().get_income());
+    println!("Output Data: {} B", system.get_network().get_outcome());
 }
