@@ -1,11 +1,13 @@
 language: rust
 rust:
   - stable
-script: cargo build --verbose --release; cargo test --verbose
+script:
+  - if [ "$TRAVIS_BRANCH == "master" ]; then cargo build --verbose --release; cargo test --verbose; fi
+  - if [ "$TRAVIS_BRANCH != "master" ]; then cargo build --verbose; cargo test --verbose; fi
 os:
-- linux
-- osx
-- windows
+  - linux
+  - osx
+  - windows
 before_deploy:
   - "if [[ -f target/release/sysinfo ]]; then mv target/release/sysinfo \"target/release/sysinfo-$TRAVIS_TAG-$TRAVIS_OS_NAME\"; fi"
   - "if [[ -f target/release/sysinfo.exe ]]; then mv target/release/sysinfo.exe \"target/release/sysinfo-$TRAVIS_TAG-$TRAVIS_OS_NAME.exe\"; fi"
