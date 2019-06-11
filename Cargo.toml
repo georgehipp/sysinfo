@@ -2,7 +2,7 @@
 name = "sysinfo"
 version = "0.2.0"
 authors = ["George"]
-edition = "2019"
+edition = "2018"
 
 [dependencies]
 sysinfo = "0.8.4"
