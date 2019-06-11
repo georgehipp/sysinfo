@@ -1,8 +1,8 @@
 [package]
 name = "sysinfo"
-version = "0.1.0"
+version = "0.2.0"
 authors = ["George"]
-edition = "2018"
+edition = "2019"
 
 [dependencies]
 sysinfo = "0.8.4"
