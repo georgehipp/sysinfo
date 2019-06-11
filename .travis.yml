@@ -22,4 +22,4 @@ deploy:
     file:
       - target/release/sysinfo-*
     api_key:
-      secure: travis-ci_build_token
+      secure: $travis-ci_build_token
