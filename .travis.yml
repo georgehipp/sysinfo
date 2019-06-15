@@ -9,8 +9,8 @@ os:
   - osx
   - windows
 before_deploy:
-  - "if [[ -f target/release/sysinfo ]]; then mv target/release/sysinfo \"target/release/sysinfo-$TRAVIS_TAG-$TRAVIS_OS_NAME\"; fi"
-  - "if [[ -f target/release/sysinfo.exe ]]; then mv target/release/sysinfo.exe \"target/release/sysinfo-$TRAVIS_TAG-$TRAVIS_OS_NAME.exe\"; fi"
+  - if [ -f target/release/sysinfo ]; then mv target/release/sysinfo "target/release/sysinfo-$TRAVIS_TAG-$TRAVIS_OS_NAME"; fi
+  - if [ -f target/release/sysinfo.exe ]; then mv target/release/sysinfo.exe "target/release/sysinfo-$TRAVIS_TAG-$TRAVIS_OS_NAME.exe"; fi
 deploy:
   provider: releases
   api_key: 
