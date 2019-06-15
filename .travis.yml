@@ -2,8 +2,8 @@ language: rust
 rust:
   - stable
 script:
-  - if [ "$TRAVIS_BRANCH" == "master" ]; then cargo build --verbose --release; cargo test --verbose; fi
-  - if [ "$TRAVIS_BRANCH" != "master" ]; then cargo build --verbose; cargo test --verbose; fi
+  - if [ "$TRAVIS_BRANCH" == "$TRAVIS_TAG" ]; then cargo build --verbose --release; cargo test --verbose; fi
+  - if [ "$TRAVIS_BRANCH" != "$TRAVIS_TAG" ]; then cargo build --verbose; cargo test --verbose; fi
 os:
   - linux
   - osx
