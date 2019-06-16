@@ -19,7 +19,6 @@ stable-x86_64-unknown-linux-gnu (default)
 rustc 1.35.0 (3c235d560 2019-05-20)
 ```
 [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) 
-Example:
 ```
 $ git --version
 git version 2.17.1
@@ -34,8 +33,6 @@ rustup component add rustfmt --toolchain stable-x86_64-unknown-linux-gnu
 ```
 
 ### Installing
-
-To start development:
 
 Clone this repository into your local workspace enter the folder
 
