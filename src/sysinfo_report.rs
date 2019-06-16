@@ -97,40 +97,69 @@ fn memory(system: sysinfo::System) {
 }
 
 // Complete Process List
-fn processes(system: sysinfo::System) {
-    use sysinfo::{ProcessExt, ProcessorExt, SystemExt};
+cfg_if! {
+    if #[cfg(unix)] {
+        fn processes(system: sysinfo::System) {
+            use sysinfo::{ProcessExt, ProcessorExt, SystemExt};
 
-    // Every process info:
-    for (pid, proc_) in system.get_process_list() {
-        println!(
-            "Process PID - {} : Name - {} => Status - {:?}",
-            pid,
-            proc_.name(),
-            proc_.status()
-        );
-        println!("  cmd - {:?}", proc_.cmd());
-        println!("  exe - {:?}", proc_.exe());
-        println!("  parent - {:?}", proc_.parent());
-        println!("  environ - {:?}", proc_.environ());
-        println!("  cwd - {:?}", proc_.cwd());
-        println!("  root - {:?}", proc_.root());
-        println!("  memory - {:?}", proc_.memory());
-        println!("  start_time - {:?}", proc_.start_time());
-        println!("  cpu_usage - {:?}", proc_.cpu_usage());
-        // Does not work on Windows
-        cfg_if! {
-            if #[cfg(unix)] {
+            // Every process info:
+            for (pid, proc_) in system.get_process_list() {
+                println!(
+                    "Process PID - {} : Name - {} => Status - {:?}",
+                    pid,
+                    proc_.name(),
+                    proc_.status()
+                );
+                println!("  cmd - {:?}", proc_.cmd());
+                println!("  exe - {:?}", proc_.exe());
+                println!("  parent - {:?}", proc_.parent());
+                println!("  environ - {:?}", proc_.environ());
+                println!("  cwd - {:?}", proc_.cwd());
+                println!("  root - {:?}", proc_.root());
+                println!("  memory - {:?}", proc_.memory());
+                println!("  start_time - {:?}", proc_.start_time());
+                println!("  cpu_usage - {:?}", proc_.cpu_usage());
+                // Does not work on Windows
                 println!("  uid - {:?}", proc_.uid());
                 println!("  gid - {:?}", proc_.gid());
                 println!("  tasks - {:?}", proc_.tasks());
             }
-        }
-    }
 
-    // Processor Information
-    for processor in system.get_processor_list() {
-        println!("Name - {:?}", processor.get_name());
-        println!("Usage - {:?}", processor.get_cpu_usage());
+            // Processor Information
+            for processor in system.get_processor_list() {
+                println!("Name - {:?}", processor.get_name());
+                println!("Usage - {:?}", processor.get_cpu_usage());
+            }
+        } 
+    } else {
+        fn processes(system: sysinfo::System) {
+            use sysinfo::{ProcessExt, ProcessorExt, SystemExt};
+
+            // Every process info:
+            for (pid, proc_) in system.get_process_list() {
+                println!(
+                    "Process PID - {} : Name - {} => Status - {:?}",
+                    pid,
+                    proc_.name(),
+                    proc_.status()
+                );
+                println!("  cmd - {:?}", proc_.cmd());
+                println!("  exe - {:?}", proc_.exe());
+                println!("  parent - {:?}", proc_.parent());
+                println!("  environ - {:?}", proc_.environ());
+                println!("  cwd - {:?}", proc_.cwd());
+                println!("  root - {:?}", proc_.root());
+                println!("  memory - {:?}", proc_.memory());
+                println!("  start_time - {:?}", proc_.start_time());
+                println!("  cpu_usage - {:?}", proc_.cpu_usage());
+            }
+
+            // Processor Information
+            for processor in system.get_processor_list() {
+                println!("Name - {:?}", processor.get_name());
+                println!("Usage - {:?}", processor.get_cpu_usage());
+            }
+        }
     }
 }
 

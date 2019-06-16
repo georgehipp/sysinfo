@@ -62,7 +62,7 @@ mod integration {
     }
 
     #[test]
-    fn invalide_option_test() {
+    fn invalid_option_test() {
         assert_cli::Assert::command(&["cargo", "run", "--", "invalid"])
         .stdout().contains("Not a Valid Option")
         .unwrap();

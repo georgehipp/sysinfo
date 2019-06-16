@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.com/georgehipp/sysinfo.svg?branch=master)](https://travis-ci.com/georgehipp/sysinfo)
 
-# SysInfo
+# SysInfo Report
 
 Cross Platform CLI Tool to display System Information
 
