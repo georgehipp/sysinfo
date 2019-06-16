@@ -2,7 +2,7 @@
 
 # SysInfo
 
-Cross Platform Tool built in Rust to add in standard System Information Collection
+Cross Platform CLI Tool to display System Information
 
 ## Getting Started
 
