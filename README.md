@@ -93,7 +93,7 @@ $ cargo fmt
 
 ## Deployment
 
-Add additional notes about how to deploy this on a live system
+Continuous Integration and Builds are managed through [travice-ci](https://travis-ci.com/georgehipp/sysinfo_report)
 
 ## Built With
 
@@ -120,5 +120,7 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 
 * [Rust Site](https://www.rust-lang.org/) - Tons of Documentation and Examples
 * [Medium](https://medium.com/search?q=rust) - Many, many articles about Rust
+* [travis-ci](https://travis-ci.com/) - Free Continuous Integration and Builds for Open Source Projects
+* github - Another amazing free tool for Open Source Projects
 
 
