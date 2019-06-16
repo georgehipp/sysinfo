@@ -6,52 +6,92 @@ Cross Platform CLI Tool to display System Information
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+These instructions will get a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
 ### Prerequisites
 
-What things you need to install the software and how to install them
-
+[Rust Toolchain](https://www.rust-lang.org/tools/install) 
 ```
-Give examples
+$ rustup show
+Default host: x86_64-unknown-linux-gnu
+
+stable-x86_64-unknown-linux-gnu (default)
+rustc 1.35.0 (3c235d560 2019-05-20)
+```
+[git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) 
+Example:
+```
+$ git --version
+git version 2.17.1
+```
+An IDE to assist development.
+I prefer [VSCode](https://code.visualstudio.com/)
+with [Rust(rls)](https://marketplace.visualstudio.com/items?itemName=rust-lang.rust)
+
+[rustfmt](https://github.com/rust-lang/rustfmt) to keep the files clean
+```
+rustup component add rustfmt --toolchain stable-x86_64-unknown-linux-gnu
 ```
 
 ### Installing
 
-A step by step series of examples that tell you how to get a development env running
+To start development:
 
-Say what the step will be
-
-```
-Give the example
-```
-
-And repeat
+Clone this repository into your local workspace enter the folder
 
 ```
-until finished
+$ git clone https://github.com/georgehipp/sysinfo_report.git
+$ cd sysinfo-report
 ```
 
-End with an example of getting some data out of the system or using it for a little demo
+Validate Code
+
+```
+$ cargo build
+   Compiling sysinfo_report v0.2.0 (/home/george/Projects/rust/sysinfo_report)
+    Finished dev [unoptimized + debuginfo] target(s) in 1.18s
+```
+
+Try it out on your system
+
+```
+$ ./target/debug/sysinfo_report os
+{"Version:": "18.04", "Type:": "Ubuntu"}
+$ cargo run -- os
+    Finished dev [unoptimized + debuginfo] target(s) in 0.05s
+     Running `target/debug/sysinfo_report os`
+{"Type:": "Ubuntu", "Version:": "18.04"}
+```
 
 ## Running the tests
 
-Explain how to run the automated tests for this system
+Testing is currently only at the integration level, unit tests have not been implemented yet.
 
 ### Break down into end to end tests
 
-Explain what these tests test and why
+Integration Testing
 
 ```
-Give an example
+$ cargo test
+...
+test integration::cpu_test ... ok
+test integration::os_test ... ok
+test integration::processes_test ... ok
+test integration::components_test ... ok
+test integration::invalid_option_test ... ok
+test integration::disk_test ... ok
+test integration::network_test ... ok
+test integration::memory_test ... ok
+
+test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 ```
 
 ### And coding style tests
 
-Explain what these tests test and why
+Use rustfmt to ensure code is following standard formating
 
 ```
-Give an example
+$ cargo fmt
 ```
 
 ## Deployment
