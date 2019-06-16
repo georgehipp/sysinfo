@@ -4,23 +4,44 @@ use std::collections::HashMap;
 extern crate assert_cli;
 
 // Public Function to be called by main.rs
-pub fn call(arg: &str) {
-    use sysinfo::SystemExt;
-    let mut system = sysinfo::System::new();
-    let info = os_info::get();
+cfg_if! {
+    if #[cfg(unix)] {
+        pub fn call(arg: &str) {
+            use sysinfo::SystemExt;
+            let mut system = sysinfo::System::new();
+            let info = os_info::get();
 
-    // Update all information of our system struct
-    system.refresh_all();
+            system.refresh_all();
+            
+            match arg {
+                "os" => print_out(os(info)),
+                "d" | "disk" => disk(system),
+                "mem" | "memory" => memory(system),
+                "proc" | "processes" => processes(system),
+                "cpu" => cpu(system),
+                "comp" | "components" => components(system),
+                "net" | "network" => network(system),
+                _ => println!("{:?} Not a Valid Option", arg),
+            }
+        }
+    } else {
+        pub fn call(arg: &str) {
+            use sysinfo::SystemExt;
+            let mut system = sysinfo::System::new();
+            let info = os_info::get();
 
-    match arg {
-        "os" => print_out(os(info)),
-        "d" | "disk" => disk(system),
-        "mem" | "memory" => memory(system),
-        "proc" | "processes" => processes(system),
-        "cpu" => cpu(system),
-        "comp" | "components" => components(system),
-        "net" | "network" => network(system),
-        _ => println!("{:?} Not a Valid Option", arg),
+            system.refresh_all();
+            
+            match arg {
+                "os" => print_out(os(info)),
+                "d" | "disk" => disk(system),
+                "mem" | "memory" => memory(system),
+                "proc" | "processes" => processes(system),
+                "cpu" => cpu(system),
+                "net" | "network" => network(system),
+                _ => println!("{:?} Not a Valid Option", arg),
+            }
+        }      
     }
 }
 
@@ -97,11 +118,13 @@ fn processes(system: sysinfo::System) {
         println!("  start_time - {:?}", proc_.start_time());
         println!("  cpu_usage - {:?}", proc_.cpu_usage());
         // Does not work on Windows
-        //if info.os_type() != os_info::Type::Windows {
-        //    println!("  uid - {:?}", proc_.uid());
-        //    println!("  gid - {:?}", proc_.gid());
-        //    println!("  tasks - {:?}", proc_.tasks());
-        //}
+        cfg_if! {
+            if #[cfg(unix)] {
+                println!("  uid - {:?}", proc_.uid());
+                println!("  gid - {:?}", proc_.gid());
+                println!("  tasks - {:?}", proc_.tasks());
+            }
+        }
     }
 
     // Processor Information
@@ -118,13 +141,17 @@ fn cpu(system: sysinfo::System) {
     println!("NB processors: {}", system.get_processor_list().len() - 1);
 }
 
-// List of all Components
-fn components(system: sysinfo::System) {
-    use sysinfo::SystemExt;
+cfg_if! {
+    if #[cfg(unix)] {
+        // List of all Components
+        fn components(system: sysinfo::System) {
+            use sysinfo::SystemExt;
 
-    // Linux Only Components:
-    for component in system.get_components_list() {
-        println!("Components: {:?}", component);
+            // Linux Only Components:
+            for component in system.get_components_list() {
+                println!("Components: {:?}", component);
+            }
+        }
     }
 }
 

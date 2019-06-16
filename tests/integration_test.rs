@@ -1,5 +1,7 @@
     
 extern crate assert_cli;
+#[macro_use]
+extern crate cfg_if;
 
 #[cfg(test)]
 mod integration {
@@ -41,11 +43,15 @@ mod integration {
         .unwrap();
     }
 
-    #[test]
-    fn components_test() {
-        assert_cli::Assert::command(&["cargo", "run", "--", "comp"])
-        .stdout().contains("")
-        .unwrap();
+    cfg_if! {
+        if #[cfg(unix)] {
+            #[test]
+            fn components_test() {
+                assert_cli::Assert::command(&["cargo", "run", "--", "comp"])
+                .stdout().contains("")
+                .unwrap();
+            }
+        }
     }
 
     #[test]
