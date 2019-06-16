@@ -1,8 +1,8 @@
 use structopt::StructOpt;
-mod sysinfo;
+mod sysinfo_report;
 
 #[derive(Debug, StructOpt)]
-#[structopt(name = "SysInfo", about = "Utility to list System Information.")]
+#[structopt(name = "SysInfo", about = "CLI Tool to list System Information.")]
 
 struct Options {
     #[structopt(name = "option")]
@@ -25,6 +25,5 @@ struct Options {
 }
 
 fn main() {
-    println!("{:?}", Options::from_args().option);
-    sysinfo::call(&Options::from_args().option);
+    sysinfo_report::call(&Options::from_args().option);
 }

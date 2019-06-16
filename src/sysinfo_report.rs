@@ -1,5 +1,7 @@
 use os_info;
 use sysinfo;
+use std::collections::HashMap;
+extern crate assert_cli;
 
 // Public Function to be called by main.rs
 pub fn call(arg: &str) {
@@ -11,7 +13,7 @@ pub fn call(arg: &str) {
     system.refresh_all();
 
     match arg {
-        "os" => os(info),
+        "os" => print_out(os(info)),
         "d" | "disk" => disk(system),
         "mem" | "memory" => memory(system),
         "proc" | "processes" => processes(system),
@@ -22,10 +24,16 @@ pub fn call(arg: &str) {
     }
 }
 
+fn print_out(value: HashMap<String, String>) {
+    println!("{:?}", value);
+}
+
 // OS Information
-fn os(info: os_info::Info) {
-    println!("Type: {}", info.os_type());
-    println!("Version: {}", info.version());
+fn os(info: os_info::Info) -> HashMap<String, String> {
+    let mut return_value: HashMap<String, String> = HashMap::new();
+    return_value.insert("Type:".to_string(), info.os_type().to_string());
+    return_value.insert("Version:".to_string(), info.version().to_string());
+    return_value
 }
 
 // Disk Information
@@ -116,7 +124,7 @@ fn components(system: sysinfo::System) {
 
     // Linux Only Components:
     for component in system.get_components_list() {
-        println!("{:?}", component);
+        println!("Components: {:?}", component);
     }
 }
 
@@ -124,6 +132,6 @@ fn components(system: sysinfo::System) {
 fn network(system: sysinfo::System) {
     use sysinfo::{NetworkExt, SystemExt};
 
-    println!("Input Data : {} B", system.get_network().get_income());
+    println!(" Input Data: {} B", system.get_network().get_income());
     println!("Output Data: {} B", system.get_network().get_outcome());
 }
