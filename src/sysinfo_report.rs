@@ -1,6 +1,6 @@
 use os_info;
-use sysinfo;
 use std::collections::HashMap;
+use sysinfo;
 extern crate assert_cli;
 
 // Public Function to be called by main.rs
@@ -12,7 +12,7 @@ cfg_if! {
             let info = os_info::get();
 
             system.refresh_all();
-            
+
             match arg {
                 "os" => print_out(os(info)),
                 "d" | "disk" => disk(system),
@@ -31,7 +31,7 @@ cfg_if! {
             let info = os_info::get();
 
             system.refresh_all();
-            
+
             match arg {
                 "os" => print_out(os(info)),
                 "d" | "disk" => disk(system),
@@ -41,7 +41,7 @@ cfg_if! {
                 "net" | "network" => network(system),
                 _ => println!("{:?} Not a Valid Option", arg),
             }
-        }      
+        }
     }
 }
 
@@ -128,7 +128,7 @@ fn processes(system: sysinfo::System) {
         println!("Name - {:?}", processor.get_name());
         println!("Usage - {:?}", processor.get_cpu_usage());
     }
-} 
+}
 
 fn cpu(system: sysinfo::System) {
     use sysinfo::SystemExt;

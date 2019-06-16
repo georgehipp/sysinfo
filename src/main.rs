@@ -7,7 +7,7 @@ extern crate cfg_if;
 cfg_if! {
     if #[cfg(unix)] {
         #[derive(Debug, StructOpt)]
-        #[structopt(name = "SysInfo", about = "CLI Tool to list System Information.")]
+        #[structopt(name = "SysInfo Report", about = "CLI Tool to list System Information.")]
 
         struct Options {
             #[structopt(name = "option")]
