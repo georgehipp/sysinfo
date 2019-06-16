@@ -60,11 +60,11 @@ $ cargo run -- os
 {"Type:": "Ubuntu", "Version:": "18.04"}
 ```
 
-## Running the tests
+## Running Tests
 
 Testing is currently only at the integration level, unit tests have not been implemented yet.
 
-### Break down into end to end tests
+### Intergration Tests
 
 Integration Testing
 
@@ -83,7 +83,7 @@ test integration::memory_test ... ok
 test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 ```
 
-### And coding style tests
+### Coding Style
 
 Use rustfmt to ensure code is following standard formating
 
@@ -97,9 +97,8 @@ Add additional notes about how to deploy this on a live system
 
 ## Built With
 
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
-* [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
+* [Cargo](https://github.com/rust-lang/cargo) - Rust's Package Manager
+* [travic-ci](https://travis-ci.com/georgehipp/sysinfo_report) - Continuous Integration and Builds
 
 ## Contributing
 
@@ -119,8 +118,7 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 
 ## Acknowledgments
 
-* Hat tip to anyone whose code was used
-* Inspiration
-* etc
+* [Rust Site](https://www.rust-lang.org/) - Tons of Documentation and Examples
+* [Medium](https://medium.com/search?q=rust) - Many, many articles about Rust
 
 
