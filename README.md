@@ -4,7 +4,72 @@
 
 Cross Platform CLI Tool to display System Information
 
-## Getting Started
+## Usage
+
+### Download the Proper Binary
+
+Download the binary specific to your OS from [Releases](https://github.com/georgehipp/sysinfo_report/releases)
+
+### Prepare File for Usage
+
+You may want to rename the file to a shorter name or create an alias.
+Example:
+```
+$ mv sysinfo_report-v0.3.0-linux sysinfo_report
+```
+
+Depending on your OS you may need to make the file executable.
+Example:
+For OSX you could add .command as an extention, chmod a+x FILE and move to Applications.
+For Windows the .exe extention should just work.
+For Linux you can ./sysinfo and it should also work
+
+### Validate
+
+```
+$ sysinfo_report os
+{"Version:": "18.04", "Type:": "Ubuntu"}
+```
+
+Help from Command Line
+
+```
+$ sysinfo_report --help
+SysInfo 0.3.0
+George
+CLI Tool to list System Information.
+
+USAGE:
+    sysinfo_report <option>
+
+FLAGS:
+    -h, --help       
+            Prints help information
+
+    -V, --version    
+            Prints version information
+
+
+ARGS:
+    <option>    
+            os | d | mem | proc | cpu | comp | net
+            
+            os - List of Operating System Information
+            
+            d | disk - List of Disk Information
+            
+            mem | memory - System Memory Usage
+            
+            proc | processes - Information about all processes on system
+            
+            cpu - Number of System Cores
+            
+            comp | components - List of System Components
+            
+            net | network - Network Usage Statistics
+```
+
+## Getting Started with Development
 
 These instructions will get a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
