@@ -9,14 +9,14 @@ os:
   - osx
   - windows
 before_deploy:
-  - if [ -f target/release/sysinfo ]; then mv target/release/sysinfo "target/release/sysinfo-$TRAVIS_TAG-$TRAVIS_OS_NAME"; fi
-  - if [ -f target/release/sysinfo.exe ]; then mv target/release/sysinfo.exe "target/release/sysinfo-$TRAVIS_TAG-$TRAVIS_OS_NAME.exe"; fi
+  - if [ -f target/release/sysinfo_report ]; then mv target/release/sysinfo "target/release/sysinfo_report-$TRAVIS_TAG-$TRAVIS_OS_NAME"; fi
+  - if [ -f target/release/sysinfo_report.exe ]; then mv target/release/sysinfo_report.exe "target/release/sysinfo_report-$TRAVIS_TAG-$TRAVIS_OS_NAME.exe"; fi
 deploy:
   provider: releases
   api_key: 
     secure: On911MH9O2syHvdqRcwc/3qHwkVKbGleIJdQUEtRg0zfC+ReQpkqSCXeEBvTyyuxqx/e/QI2HFYFBJj9XTkr6tKqP915cPapu6QMrqqilZSm1ac/tuz3wH6zsG6RiO5B0YfkMouJG1yZuR0Paoc5RpR6MAqlw9mtw/KkurHj4eSAqqJKJG95C8n58SnEI8pnBZYmwKcnoL7a3G/hGReMxpKoIPPQ/LMd9SP2IjXOevTjPTTJHJCzshbRQZYzsqCN6v8yEDCEkv17rvWSxY5qVpemRT3qJZdMAh962FDPfKr22PhU0oa/MwuqSMaFS8clf2DD1ZtcXANJTi7euiGDXn0tOyTMSqEvO3jP1k+EM1WCCz115dysabO2bCCE1uJXO0Lb1TB9OTr/XV4FNcC8vOJVl0iZ/+LIh4WX8sstguRMOhPIvl+r0Gpm1M/1e0aeGcZWjqInTLMqTVQSw9b1ARePE7/0qzFfwa6CIvOXoy7A7+SGXYYXFUZQA/zJ8+tjJtY9SPZKPcNhmI0lWMJ37u2su5jfCirlwW2USQIwVO7o4SV6ZPVTgPdjHVRTwo1QpXMKKtHlhRYKYS/8DvOE2gNPEtkjvKlPo/a0AQims4zr4YgKV60kwq5y7M8w5jDvpAMC1EruRls5f1e3yEguSc3OAkUFhf0FYt3Bw1dVkQg=
   file_glob: true
-  file: target/release/sysinfo-*
+  file: target/release/sysinfo_report-*
   skip_cleanup: true
   on:
     tags: true
