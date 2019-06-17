@@ -35,8 +35,6 @@ Help from Command Line
 
 ```
 $ sysinfo_report --help
-SysInfo 0.3.0
-George
 CLI Tool to list System Information.
 
 USAGE:
