@@ -1,6 +1,6 @@
 [package]
 name = "sysinfo_report"
-version = "0.2.0"
+version = "0.3.0"
 authors = ["George Hipp <george.hipp.jr@gmail.com>"]
 edition = "2018"
 
