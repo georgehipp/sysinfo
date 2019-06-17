@@ -93,12 +93,12 @@ $ cargo fmt
 
 ## Deployment
 
-Continuous Integration and Builds are managed through [travice-ci](https://travis-ci.com/georgehipp/sysinfo_report)
+Continuous Integration and Builds are managed through [travis-ci](https://travis-ci.com/georgehipp/sysinfo_report)
 
 ## Built With
 
 * [Cargo](https://github.com/rust-lang/cargo) - Rust's Package Manager
-* [travic-ci](https://travis-ci.com/georgehipp/sysinfo_report) - Continuous Integration and Builds
+* [travis-ci](https://travis-ci.com/georgehipp/sysinfo_report) - Continuous Integration and Builds
 
 ## Contributing
 
