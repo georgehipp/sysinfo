@@ -9,7 +9,7 @@ os:
   - osx
   - windows
 before_deploy:
-  - if [ -f target/release/sysinfo_report ]; then mv target/release/sysinfo "target/release/sysinfo_report-$TRAVIS_TAG-$TRAVIS_OS_NAME"; fi
+  - if [ -f target/release/sysinfo_report ]; then mv target/release/sysinfo_report "target/release/sysinfo_report-$TRAVIS_TAG-$TRAVIS_OS_NAME"; fi
   - if [ -f target/release/sysinfo_report.exe ]; then mv target/release/sysinfo_report.exe "target/release/sysinfo_report-$TRAVIS_TAG-$TRAVIS_OS_NAME.exe"; fi
 deploy:
   provider: releases
