@@ -20,9 +20,9 @@ $ mv sysinfo_report-v0.3.0-linux sysinfo_report
 
 Depending on your OS you may need to make the file executable.
 Example:
-For OSX you could add .command as an extention, chmod a+x FILE and move to Applications.
-For Windows the .exe extention should just work.
-For Linux you can ./sysinfo and it should also work
+* OSX you could add .command as an extention, chmod a+x FILE and move to Applications.
+* Windows the .exe extention should just work.
+* Linux you can ./sysinfo and it should also work
 
 ### Validate
 
