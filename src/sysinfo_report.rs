@@ -103,7 +103,7 @@ pub fn cpu(system: sysinfo::System) {
 cfg_if! {
     if #[cfg(unix)] {
         // List of all Components
-        fn components(system: sysinfo::System) {
+        pub fn components(system: sysinfo::System) {
             use sysinfo::SystemExt;
 
             // Linux Only Components:

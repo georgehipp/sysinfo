@@ -66,7 +66,7 @@ fn main() {
                 system.refresh_all();
 
                 match arg {
-                    "os" => sysinfo_report::print_out(os(info)),
+                    "os" => sysinfo_report::print_out(sysinfo_report::os(info), &mut value),
                     "d" | "disk" => sysinfo_report::disk(system),
                     "mem" | "memory" => sysinfo_report::memory(system),
                     "proc" | "processes" => sysinfo_report::processes(system),
