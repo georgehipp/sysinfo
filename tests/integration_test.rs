@@ -15,7 +15,7 @@ mod integration {
             .contains("Version:")
             .unwrap();
     }
-
+/*
     #[test]
     fn disk_test() {
         assert_cli::Assert::command(&["cargo", "run", "--", "disk"])
@@ -23,7 +23,7 @@ mod integration {
             .contains("Disk")
             .unwrap();
     }
-
+*/
     #[test]
     fn memory_test() {
         assert_cli::Assert::command(&["cargo", "run", "--", "mem"])
