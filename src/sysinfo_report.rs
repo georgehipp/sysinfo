@@ -5,9 +5,7 @@ use sysinfo;
 pub fn print_out(value: HashMap<String, String>, mut writer: impl std::io::Write) {
     match writeln!(writer, "{:?}", value) {
         Ok(_) => (),
-        Err(error) => {
-            panic!("Issue with std::io::write. {:?}", error)
-        } 
+        Err(error) => panic!("Issue with std::io::write. {:?}", error),
     }
     println!("{:?}", value);
 }
