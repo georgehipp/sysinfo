@@ -1,56 +1,17 @@
 use os_info;
 use std::collections::HashMap;
 use sysinfo;
-extern crate assert_cli;
 
-// Public Function to be called by main.rs
-cfg_if! {
-    if #[cfg(unix)] {
-        pub fn call(arg: &str) {
-            use sysinfo::SystemExt;
-            let mut system = sysinfo::System::new();
-            let info = os_info::get();
-
-            system.refresh_all();
-
-            match arg {
-                "os" => print_out(os(info)),
-                "d" | "disk" => disk(system),
-                "mem" | "memory" => memory(system),
-                "proc" | "processes" => processes(system),
-                "cpu" => cpu(system),
-                "comp" | "components" => components(system),
-                "net" | "network" => network(system),
-                _ => println!("{:?} Not a Valid Option", arg),
-            }
-        }
-    } else {
-        pub fn call(arg: &str) {
-            use sysinfo::SystemExt;
-            let mut system = sysinfo::System::new();
-            let info = os_info::get();
-
-            system.refresh_all();
-
-            match arg {
-                "os" => print_out(os(info)),
-                "d" | "disk" => disk(system),
-                "mem" | "memory" => memory(system),
-                "proc" | "processes" => processes(system),
-                "cpu" => cpu(system),
-                "net" | "network" => network(system),
-                _ => println!("{:?} Not a Valid Option", arg),
-            }
-        }
+pub fn print_out(value: HashMap<String, String>, mut writer: impl std::io::Write) {
+    match writeln!(writer, "{:?}", value) {
+        Ok(_) => (),
+        Err(error) => panic!("Issue with std::io::write. {:?}", error),
     }
-}
-
-fn print_out(value: HashMap<String, String>) {
     println!("{:?}", value);
 }
 
 // OS Information
-fn os(info: os_info::Info) -> HashMap<String, String> {
+pub fn os(info: os_info::Info) -> HashMap<String, String> {
     let mut return_value: HashMap<String, String> = HashMap::new();
     return_value.insert("Type:".to_string(), info.os_type().to_string());
     return_value.insert("Version:".to_string(), info.version().to_string());
@@ -58,7 +19,7 @@ fn os(info: os_info::Info) -> HashMap<String, String> {
 }
 
 // Disk Information
-fn disk(system: sysinfo::System) {
+pub fn disk(system: sysinfo::System) {
     use sysinfo::{DiskExt, SystemExt};
 
     for disk in system.get_disks() {
@@ -74,7 +35,7 @@ fn disk(system: sysinfo::System) {
 }
 
 // System Memory Usage
-fn memory(system: sysinfo::System) {
+pub fn memory(system: sysinfo::System) {
     use sysinfo::{NetworkExt, SystemExt};
 
     // RAM and SWAP information:
@@ -97,7 +58,7 @@ fn memory(system: sysinfo::System) {
 }
 
 // Complete Process List
-fn processes(system: sysinfo::System) {
+pub fn processes(system: sysinfo::System) {
     use sysinfo::{ProcessExt, ProcessorExt, SystemExt};
 
     // Every process info:
@@ -130,7 +91,7 @@ fn processes(system: sysinfo::System) {
     }
 }
 
-fn cpu(system: sysinfo::System) {
+pub fn cpu(system: sysinfo::System) {
     use sysinfo::SystemExt;
 
     // Number of processors Minus one due to it counting the array as one
@@ -140,7 +101,7 @@ fn cpu(system: sysinfo::System) {
 cfg_if! {
     if #[cfg(unix)] {
         // List of all Components
-        fn components(system: sysinfo::System) {
+        pub fn components(system: sysinfo::System) {
             use sysinfo::SystemExt;
 
             // Linux Only Components:
@@ -152,9 +113,32 @@ cfg_if! {
 }
 
 // Network Info - Needs to be validated
-fn network(system: sysinfo::System) {
+pub fn network(system: sysinfo::System) {
     use sysinfo::{NetworkExt, SystemExt};
 
     println!(" Input Data: {} B", system.get_network().get_income());
     println!("Output Data: {} B", system.get_network().get_outcome());
+}
+
+#[cfg(test)]
+mod unit {
+    use super::*;
+    use os_info;
+
+    #[test]
+    fn print_out_test() {
+        let mut return_value: HashMap<String, String> = HashMap::new();
+        return_value.insert("String One".to_string(), "String Two".to_string());
+        let mut value = Vec::new();
+        print_out(return_value, &mut value);
+        assert_eq!(value, b"{\"String One\": \"String Two\"}\n");
+    }
+
+    #[test]
+    fn os_test() {
+        let info = os_info::get();
+        let return_value = os(info);
+        assert!(return_value.contains_key("Version:"), true);
+        assert!(return_value.contains_key("Type:"), true);
+    }
 }
